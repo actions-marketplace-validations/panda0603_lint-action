@@ -1,4 +1,4 @@
-name: Lint Action
+name: Action Lint
 author: Samuel Meuli
 description: GitHub Action for detecting and fixing linting errors
 
