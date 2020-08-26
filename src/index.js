@@ -72,6 +72,7 @@ async function runAction() {
 			log(`\nVerifying setup for ${linter.name}…`);
 			await linter.verifySetup(lintDirAbs, prefix);
 			log(`Verified ${linter.name} setup`);
+			log(`Files to be linted: ${filteredArgs}`);
 
 			// Determine which files should be linted
 			const fileExtList = fileExtensions.split(",");
