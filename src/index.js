@@ -68,6 +68,7 @@ async function runAction() {
 			const lintDirAbs = join(context.workspace, lintDirRel);
 			
 			log(`input files are ${args}`);
+			log(`filtered files are ${args.split(' ').filter(fileName=>fileName.endsWith('.js') || fileName.endsWith('.ts') || fileName.endsWith('.tsx') || fileName.endsWith('.jsx')).join(' ')}`);
 			// Check that the linter and its dependencies are installed
 			log(`\nVerifying setup for ${linter.name}…`);
 			await linter.verifySetup(lintDirAbs, prefix);
