@@ -66,7 +66,8 @@ async function runAction() {
 			const lintDirRel = getInput(`${linterId}_dir`) || ".";
 			const prefix = getInput(`${linterId}_command_prefix`) || "";
 			const lintDirAbs = join(context.workspace, lintDirRel);
-
+			
+			log(`input files are ${args}`);
 			// Check that the linter and its dependencies are installed
 			log(`\nVerifying setup for ${linter.name}…`);
 			await linter.verifySetup(lintDirAbs, prefix);
