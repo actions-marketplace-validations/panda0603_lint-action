@@ -63,12 +63,11 @@ async function runAction() {
 		if (getInput(linterId) === "true") {
 			const fileExtensions = getInput(`${linterId}_extensions`, true);
 			const args = getInput(`${linterId}_args`) || "";
+			const filteredArgs = args.split(' ').filter(fileName=>fileName.endsWith('.js') || fileName.endsWith('.ts') || fileName.endsWith('.tsx') || fileName.endsWith('.jsx')).join(' ');
 			const lintDirRel = getInput(`${linterId}_dir`) || ".";
 			const prefix = getInput(`${linterId}_command_prefix`) || "";
 			const lintDirAbs = join(context.workspace, lintDirRel);
 			
-			log(`input files are ${args}`);
-			log(`filtered files are ${args.split(' ').filter(fileName=>fileName.endsWith('.js') || fileName.endsWith('.ts') || fileName.endsWith('.tsx') || fileName.endsWith('.jsx')).join(' ')}`);
 			// Check that the linter and its dependencies are installed
 			log(`\nVerifying setup for ${linter.name}…`);
 			await linter.verifySetup(lintDirAbs, prefix);
@@ -82,7 +81,7 @@ async function runAction() {
 			log(
 				`Linting ${autoFix ? "and auto-fixing " : ""}files in ${lintDirAbs} with ${linter.name}…`,
 			);
-			const lintOutput = linter.lint(lintDirAbs, fileExtList, args, autoFix, prefix);
+			const lintOutput = linter.lint(lintDirAbs, fileExtList, filteredArgs, autoFix, prefix);
 
 			// Parse output of linting command
 			const lintResult = linter.parseOutput(context.workspace, lintOutput);
